@@ -26,9 +26,19 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Download Super-Linter
+      run: |
+        wget -O super-linter.zip https://github.com/github/super-linter/archive/refs/tags/v4.15.0.zip
+        unzip super-linter.zip
+        mv super-linter-4.15.0 super-linter
+
+    - name: Set up Super-Linter
+      run: |
+        cd super-linter
+        ./install.sh
+
     - name: Run Super-Linter
       run: |
-        git clone https://github.com/github/super-linter.git
         cd super-linter
         ./run.sh --allow-prompt --no-colors --validators python
 
